@@ -1,131 +1,96 @@
-/**
- * 
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
- * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
- * 
- * Dependencies: None
- * 
- * JS Version: ES2015/ES6
- * 
- * JS Standard: ESlint
- * 
-*/
-
-/**
- * Comments should be present at the beginning of each procedure and class.
- * Great to have comments before crucial code sections within the procedure.
-*/
-
-/**
- * Define Global Variables
- * 
-*/
-
 const unorderList = document.querySelector('#navbar__list');
+
+//POPULATING THE UL
 for (let i = 1; i < 5; i++) {
     const list =  document.createElement('li');
-    list.innerHTML = `<a id="link${i}" class="menu__link">Section ${i}</a>`;
+    list.innerHTML = `<a id="link-section${i}" class="menu__link">Section ${i}</a>`;
     unorderList.appendChild(list);
 }
 
+//CREATING ARRAYS FOR SECTIONS, SECTIONSlOCATION, AND SECTIONSLINKS
+const sections = Array.from({length: 4});
 
-const section1 = document.querySelector('#section1');
-const section2 = document.querySelector('#section2');
-const section3 = document.querySelector('#section3');
-const section4 = document.querySelector('#section4');
-
-const section1Location = section1.getBoundingClientRect();
-const section3Location = section3.getBoundingClientRect();
-const section2Location = section2.getBoundingClientRect();
-const section4Location = section4.getBoundingClientRect();
-
-const section1Link = document.querySelector('#link1');
-section1Link.addEventListener('click', function(event) {
-    window.scroll({
-        top: section1Location['top'],
-        left: 0,
-        behavior: 'smooth'
-      });
-    event.preventDefault;
-});
-const section2Link = document.querySelector('#link2');
-section2Link.addEventListener('click', function(event) {
-    window.scroll({
-        top: section2Location['top'],
-        left: 0,
-        behavior: 'smooth'
-      });
-    event.preventDefault;
-});
-const section3Link = document.querySelector('#link3');
-section3Link.addEventListener('click', function(event) {
-    window.scroll({
-        top: section3Location['top'],
-        left: 0,
-        behavior: 'smooth'
-      });
-    event.preventDefault;
+sections.forEach((element, index) => {
+        sections[index] = document.querySelector(`#section${index + 1}`);
 });
 
-const section4Link = document.querySelector('#link4');
-section4Link.addEventListener('click', function(event) {
-    window.scroll({
-        top: section4Location['top'],
-        left: 0,
-        behavior: 'smooth'
-      });
-    event.preventDefault;
+const sectionsLocations = Array.from({length: 4});
+
+sectionsLocations.forEach((element, index) => {
+    sectionsLocations[index] = sections[index].getBoundingClientRect().y;
 });
 
+const sectionsLinks = Array.from({length: 4});
 
-
-
+sectionsLinks.forEach((element, index) => {
+    sectionsLinks[index] = document.querySelector(`#link-section${index + 1}`);
+});
 
 let viewportLocation = window.visualViewport;
-function update() {
-    if (viewportLocation['pageTop'].toFixed(0) >= section2Location['top'].toFixed(0)) {
-        section2.classList.add('active');
-        console.log("Hello world");
+
+
+
+//A FUNCTION TO CHANGE THE CLASS OF A SECTION ON SCROLL
+document.addEventListener('scroll',function update(event) {
+    if(viewportLocation['pageTop'] >= (sectionsLocations[1] - 100) && viewportLocation['pageTop'] < (sectionsLocations[2] - 100)) {
+        sections[1].classList.add('your-active-class');
+        sections[0].classList.remove('your-active-class');
+        sections[2].classList.remove('your-active-class');
+        sections[3].classList.remove('your-active-class');
+        event.preventDefault();
+        
     }
-}
+    else if(viewportLocation['pageTop'] >= (sectionsLocations[2] - 100) && viewportLocation['pageTop'] < (sectionsLocations[3] - 100)) {
+        sections[2].classList.add('your-active-class');
+        sections[0].classList.remove('your-active-class');
+        sections[1].classList.remove('your-active-class');
+        sections[3].classList.remove('your-active-class');
+        event.preventDefault();
+        
+    }
+    else if(viewportLocation['pageTop'] >= (sectionsLocations[3] - 100)) {
+        sections[3].classList.add('your-active-class');
+        sections[0].classList.remove('your-active-class');
+        sections[1].classList.remove('your-active-class');
+        sections[2].classList.remove('your-active-class');
+        event.preventDefault();
+        
+    }
+    else {
+        sections[0].classList.add('your-active-class');
+        sections[1].classList.remove('your-active-class');
+        event.preventDefault();
+    }
+ });
+ 
+sectionsLinks[0].addEventListener('click', (event) => {
+    window.scroll({
+        top: sectionsLocations[0],
+        behavior: 'smooth'
+    });
+    event.preventDefault();
+});
 
-document.addEventListener('scroll',update);
-update();
+sectionsLinks[1].addEventListener('click', (event) => {
+    window.scroll({
+        top: sectionsLocations[1],
+        behavior: 'smooth'
+    });
+    event.preventDefault();
+});
 
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
+sectionsLinks[2].addEventListener('click', (event) => {
+    window.scroll({
+        top: sectionsLocations[2],
+        behavior: 'smooth'
+    });
+    event.preventDefault();
+});
 
-
-
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-
-// build the nav
-
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
+sectionsLinks[3].addEventListener('click', (event) => {
+    window.scroll({
+        top: sectionsLocations[3],
+        behavior: 'smooth'
+    });
+    event.preventDefault();
+});
