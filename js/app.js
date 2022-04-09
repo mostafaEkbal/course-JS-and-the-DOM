@@ -37,6 +37,10 @@ document.addEventListener('scroll',function update(event) {
         sections[0].classList.remove('your-active-class');
         sections[2].classList.remove('your-active-class');
         sections[3].classList.remove('your-active-class');
+        document.getElementById('link-section2').classList.add('section-highlight')
+        document.getElementById('link-section1').classList.remove('section-highlight')
+        document.getElementById('link-section3').classList.remove('section-highlight')
+        document.getElementById('link-section4').classList.remove('section-highlight')
         event.preventDefault();
         
     }
@@ -45,6 +49,10 @@ document.addEventListener('scroll',function update(event) {
         sections[0].classList.remove('your-active-class');
         sections[1].classList.remove('your-active-class');
         sections[3].classList.remove('your-active-class');
+        document.getElementById('link-section3').classList.add('section-highlight')
+        document.getElementById('link-section1').classList.remove('section-highlight')
+        document.getElementById('link-section2').classList.remove('section-highlight')
+        document.getElementById('link-section4').classList.remove('section-highlight')
         event.preventDefault();
         
     }
@@ -53,12 +61,26 @@ document.addEventListener('scroll',function update(event) {
         sections[0].classList.remove('your-active-class');
         sections[1].classList.remove('your-active-class');
         sections[2].classList.remove('your-active-class');
+        document.getElementById('link-section4').classList.add('section-highlight')
+        document.getElementById('link-section1').classList.remove('section-highlight')
+        document.getElementById('link-section2').classList.remove('section-highlight')
+        document.getElementById('link-section3').classList.remove('section-highlight')
         event.preventDefault();
         
+    }
+    else if(viewportLocation['pageTop'] === 0){
+        document.getElementById('link-section1').classList.remove('section-highlight')
+        document.getElementById('link-section2').classList.remove('section-highlight')
+        document.getElementById('link-section3').classList.remove('section-highlight')
+        document.getElementById('link-section4').classList.remove('section-highlight')
     }
     else {
         sections[0].classList.add('your-active-class');
         sections[1].classList.remove('your-active-class');
+        document.getElementById('link-section1').classList.add('section-highlight')
+        document.getElementById('link-section2').classList.remove('section-highlight')
+        document.getElementById('link-section3').classList.remove('section-highlight')
+        document.getElementById('link-section4').classList.remove('section-highlight')
         event.preventDefault();
     }
  });
